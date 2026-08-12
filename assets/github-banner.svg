@@ -1,4 +1,3 @@
-
 <svg
   xmlns="http://www.w3.org/2000/svg"
   width="1200"
@@ -8,6 +7,7 @@
 
   <defs>
 
+    <!-- GitHub Dark Background -->
     <linearGradient
       id="background"
       x1="0%"
@@ -15,11 +15,12 @@
       x2="100%"
       y2="100%"
     >
-      <stop offset="0%" stop-color="#0f172a"/>
-      <stop offset="50%" stop-color="#312e81"/>
-      <stop offset="100%" stop-color="#581c87"/>
+      <stop offset="0%" stop-color="#0d1117"/>
+      <stop offset="55%" stop-color="#0d1117"/>
+      <stop offset="100%" stop-color="#161b22"/>
     </linearGradient>
 
+    <!-- GitHub Blue Accent -->
     <linearGradient
       id="accent"
       x1="0%"
@@ -27,23 +28,38 @@
       x2="100%"
       y2="0%"
     >
-      <stop offset="0%" stop-color="#22d3ee"/>
-      <stop offset="50%" stop-color="#a855f7"/>
-      <stop offset="100%" stop-color="#ec4899"/>
+      <stop offset="0%" stop-color="#58a6ff"/>
+      <stop offset="50%" stop-color="#2ea043"/>
+      <stop offset="100%" stop-color="#39d353"/>
+    </linearGradient>
+
+    <!-- GitHub Green -->
+    <linearGradient
+      id="green"
+      x1="0%"
+      y1="0%"
+      x2="100%"
+      y2="0%"
+    >
+      <stop offset="0%" stop-color="#0e4429"/>
+      <stop offset="50%" stop-color="#26a641"/>
+      <stop offset="100%" stop-color="#39d353"/>
     </linearGradient>
 
     <filter id="shadow">
       <feDropShadow
         dx="0"
-        dy="8"
-        stdDeviation="12"
-        flood-opacity="0.35"
+        dy="6"
+        stdDeviation="10"
+        flood-color="#000000"
+        flood-opacity="0.45"
       />
     </filter>
 
   </defs>
 
-  <!-- Background -->
+
+  <!-- ================= BACKGROUND ================= -->
 
   <rect
     width="1200"
@@ -52,31 +68,33 @@
     fill="url(#background)"
   />
 
-  <!-- Decorative glow -->
+
+  <!-- GitHub-style subtle glow -->
 
   <circle
     cx="1080"
     cy="50"
     r="180"
-    fill="#a855f7"
-    opacity="0.08"
+    fill="#58a6ff"
+    opacity="0.035"
   />
 
   <circle
     cx="80"
     cy="380"
     r="180"
-    fill="#22d3ee"
-    opacity="0.07"
+    fill="#39d353"
+    opacity="0.035"
   />
 
-  <!-- Header -->
+
+  <!-- ================= HEADER ================= -->
 
   <text
     x="600"
     y="70"
     text-anchor="middle"
-    fill="#ffffff"
+    fill="#f0f6fc"
     font-family="Arial, Helvetica, sans-serif"
     font-size="42"
     font-weight="700"
@@ -84,18 +102,20 @@
     Ketan Kumar
   </text>
 
+
   <text
     x="600"
     y="105"
     text-anchor="middle"
-    fill="#cbd5e1"
+    fill="#8b949e"
     font-family="Arial, Helvetica, sans-serif"
     font-size="17"
   >
     Full Stack Developer • MERN • AI Products
   </text>
 
-  <!-- Accent -->
+
+  <!-- GitHub Accent -->
 
   <rect
     x="440"
@@ -106,7 +126,8 @@
     fill="url(#accent)"
   />
 
-  <!-- Row 1 -->
+
+  <!-- ================= ROW 1 ================= -->
 
   <g filter="url(#shadow)">
 
@@ -116,10 +137,9 @@
       width="330"
       height="95"
       rx="18"
-      fill="#ffffff"
-      fill-opacity="0.08"
-      stroke="#ffffff"
-      stroke-opacity="0.12"
+      fill="#161b22"
+      stroke="#30363d"
+      stroke-width="1"
     />
 
     <rect
@@ -128,10 +148,9 @@
       width="330"
       height="95"
       rx="18"
-      fill="#ffffff"
-      fill-opacity="0.08"
-      stroke="#ffffff"
-      stroke-opacity="0.12"
+      fill="#161b22"
+      stroke="#30363d"
+      stroke-width="1"
     />
 
     <rect
@@ -140,32 +159,32 @@
       width="330"
       height="95"
       rx="18"
-      fill="#ffffff"
-      fill-opacity="0.08"
-      stroke="#ffffff"
-      stroke-opacity="0.12"
+      fill="#161b22"
+      stroke="#30363d"
+      stroke-width="1"
     />
 
   </g>
 
-  <!-- Row 1 Labels -->
+
+  <!-- Current Streak -->
 
   <text
     x="225"
     y="190"
     text-anchor="middle"
-    fill="#cbd5e1"
+    fill="#8b949e"
     font-family="Arial"
     font-size="15"
   >
-    🔥 CURRENT STREAK
+     CURRENT STREAK
   </text>
 
   <text
     x="225"
     y="228"
     text-anchor="middle"
-    fill="#ffffff"
+    fill="#39d353"
     font-family="Arial"
     font-size="30"
     font-weight="700"
@@ -174,22 +193,24 @@
   </text>
 
 
+  <!-- Longest Streak -->
+
   <text
     x="600"
     y="190"
     text-anchor="middle"
-    fill="#cbd5e1"
+    fill="#8b949e"
     font-family="Arial"
     font-size="15"
   >
-    🏆 LONGEST STREAK
+     LONGEST STREAK
   </text>
 
   <text
     x="600"
     y="228"
     text-anchor="middle"
-    fill="#ffffff"
+    fill="#58a6ff"
     font-family="Arial"
     font-size="30"
     font-weight="700"
@@ -198,22 +219,24 @@
   </text>
 
 
+  <!-- Contributions -->
+
   <text
     x="975"
     y="190"
     text-anchor="middle"
-    fill="#cbd5e1"
+    fill="#8b949e"
     font-family="Arial"
     font-size="15"
   >
-    📊 CONTRIBUTIONS
+     CONTRIBUTIONS
   </text>
 
   <text
     x="975"
     y="228"
     text-anchor="middle"
-    fill="#ffffff"
+    fill="#39d353"
     font-family="Arial"
     font-size="30"
     font-weight="700"
@@ -222,7 +245,7 @@
   </text>
 
 
-  <!-- Row 2 -->
+  <!-- ================= ROW 2 ================= -->
 
   <g>
 
@@ -232,8 +255,9 @@
       width="250"
       height="90"
       rx="18"
-      fill="#ffffff"
-      fill-opacity="0.07"
+      fill="#161b22"
+      stroke="#30363d"
+      stroke-width="1"
     />
 
     <rect
@@ -242,8 +266,9 @@
       width="250"
       height="90"
       rx="18"
-      fill="#ffffff"
-      fill-opacity="0.07"
+      fill="#161b22"
+      stroke="#30363d"
+      stroke-width="1"
     />
 
     <rect
@@ -252,8 +277,9 @@
       width="250"
       height="90"
       rx="18"
-      fill="#ffffff"
-      fill-opacity="0.07"
+      fill="#161b22"
+      stroke="#30363d"
+      stroke-width="1"
     />
 
     <rect
@@ -262,29 +288,32 @@
       width="270"
       height="90"
       rx="18"
-      fill="#ffffff"
-      fill-opacity="0.07"
+      fill="#161b22"
+      stroke="#30363d"
+      stroke-width="1"
     />
 
   </g>
 
 
+  <!-- Active Days -->
+
   <text
     x="185"
     y="310"
     text-anchor="middle"
-    fill="#cbd5e1"
+    fill="#8b949e"
     font-family="Arial"
     font-size="14"
   >
-    📅 ACTIVE DAYS
+     ACTIVE DAYS
   </text>
 
   <text
     x="185"
     y="345"
     text-anchor="middle"
-    fill="#ffffff"
+    fill="#39d353"
     font-family="Arial"
     font-size="26"
     font-weight="700"
@@ -293,22 +322,24 @@
   </text>
 
 
+  <!-- Pull Requests -->
+
   <text
     x="455"
     y="310"
     text-anchor="middle"
-    fill="#cbd5e1"
+    fill="#8b949e"
     font-family="Arial"
     font-size="14"
   >
-    🔀 PULL REQUESTS
+     PULL REQUESTS
   </text>
 
   <text
     x="455"
     y="345"
     text-anchor="middle"
-    fill="#ffffff"
+    fill="#58a6ff"
     font-family="Arial"
     font-size="26"
     font-weight="700"
@@ -317,22 +348,24 @@
   </text>
 
 
+  <!-- Commits -->
+
   <text
     x="725"
     y="310"
     text-anchor="middle"
-    fill="#cbd5e1"
+    fill="#8b949e"
     font-family="Arial"
     font-size="14"
   >
-    💻 COMMITS
+     COMMITS
   </text>
 
   <text
     x="725"
     y="345"
     text-anchor="middle"
-    fill="#ffffff"
+    fill="#39d353"
     font-family="Arial"
     font-size="26"
     font-weight="700"
@@ -341,22 +374,24 @@
   </text>
 
 
+  <!-- Issues -->
+
   <text
     x="1005"
     y="310"
     text-anchor="middle"
-    fill="#cbd5e1"
+    fill="#8b949e"
     font-family="Arial"
     font-size="14"
   >
-    🐛 ISSUES
+     ISSUES
   </text>
 
   <text
     x="1005"
     y="345"
     text-anchor="middle"
-    fill="#ffffff"
+    fill="#58a6ff"
     font-family="Arial"
     font-size="26"
     font-weight="700"
@@ -365,13 +400,13 @@
   </text>
 
 
-  <!-- Footer -->
+  <!-- ================= FOOTER ================= -->
 
   <text
     x="600"
     y="395"
     text-anchor="middle"
-    fill="#94a3b8"
+    fill="#6e7681"
     font-family="Arial"
     font-size="12"
   >
