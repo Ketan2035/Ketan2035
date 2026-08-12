@@ -1,0 +1,381 @@
+
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  width="1200"
+  height="420"
+  viewBox="0 0 1200 420"
+>
+
+  <defs>
+
+    <linearGradient
+      id="background"
+      x1="0%"
+      y1="0%"
+      x2="100%"
+      y2="100%"
+    >
+      <stop offset="0%" stop-color="#0f172a"/>
+      <stop offset="50%" stop-color="#312e81"/>
+      <stop offset="100%" stop-color="#581c87"/>
+    </linearGradient>
+
+    <linearGradient
+      id="accent"
+      x1="0%"
+      y1="0%"
+      x2="100%"
+      y2="0%"
+    >
+      <stop offset="0%" stop-color="#22d3ee"/>
+      <stop offset="50%" stop-color="#a855f7"/>
+      <stop offset="100%" stop-color="#ec4899"/>
+    </linearGradient>
+
+    <filter id="shadow">
+      <feDropShadow
+        dx="0"
+        dy="8"
+        stdDeviation="12"
+        flood-opacity="0.35"
+      />
+    </filter>
+
+  </defs>
+
+  <!-- Background -->
+
+  <rect
+    width="1200"
+    height="420"
+    rx="28"
+    fill="url(#background)"
+  />
+
+  <!-- Decorative glow -->
+
+  <circle
+    cx="1080"
+    cy="50"
+    r="180"
+    fill="#a855f7"
+    opacity="0.08"
+  />
+
+  <circle
+    cx="80"
+    cy="380"
+    r="180"
+    fill="#22d3ee"
+    opacity="0.07"
+  />
+
+  <!-- Header -->
+
+  <text
+    x="600"
+    y="70"
+    text-anchor="middle"
+    fill="#ffffff"
+    font-family="Arial, Helvetica, sans-serif"
+    font-size="42"
+    font-weight="700"
+  >
+    Ketan Kumar
+  </text>
+
+  <text
+    x="600"
+    y="105"
+    text-anchor="middle"
+    fill="#cbd5e1"
+    font-family="Arial, Helvetica, sans-serif"
+    font-size="17"
+  >
+    Full Stack Developer • MERN • AI Products
+  </text>
+
+  <!-- Accent -->
+
+  <rect
+    x="440"
+    y="125"
+    width="320"
+    height="3"
+    rx="2"
+    fill="url(#accent)"
+  />
+
+  <!-- Row 1 -->
+
+  <g filter="url(#shadow)">
+
+    <rect
+      x="60"
+      y="155"
+      width="330"
+      height="95"
+      rx="18"
+      fill="#ffffff"
+      fill-opacity="0.08"
+      stroke="#ffffff"
+      stroke-opacity="0.12"
+    />
+
+    <rect
+      x="435"
+      y="155"
+      width="330"
+      height="95"
+      rx="18"
+      fill="#ffffff"
+      fill-opacity="0.08"
+      stroke="#ffffff"
+      stroke-opacity="0.12"
+    />
+
+    <rect
+      x="810"
+      y="155"
+      width="330"
+      height="95"
+      rx="18"
+      fill="#ffffff"
+      fill-opacity="0.08"
+      stroke="#ffffff"
+      stroke-opacity="0.12"
+    />
+
+  </g>
+
+  <!-- Row 1 Labels -->
+
+  <text
+    x="225"
+    y="190"
+    text-anchor="middle"
+    fill="#cbd5e1"
+    font-family="Arial"
+    font-size="15"
+  >
+    🔥 CURRENT STREAK
+  </text>
+
+  <text
+    x="225"
+    y="228"
+    text-anchor="middle"
+    fill="#ffffff"
+    font-family="Arial"
+    font-size="30"
+    font-weight="700"
+  >
+    2 days
+  </text>
+
+
+  <text
+    x="600"
+    y="190"
+    text-anchor="middle"
+    fill="#cbd5e1"
+    font-family="Arial"
+    font-size="15"
+  >
+    🏆 LONGEST STREAK
+  </text>
+
+  <text
+    x="600"
+    y="228"
+    text-anchor="middle"
+    fill="#ffffff"
+    font-family="Arial"
+    font-size="30"
+    font-weight="700"
+  >
+    6 days
+  </text>
+
+
+  <text
+    x="975"
+    y="190"
+    text-anchor="middle"
+    fill="#cbd5e1"
+    font-family="Arial"
+    font-size="15"
+  >
+    📊 CONTRIBUTIONS
+  </text>
+
+  <text
+    x="975"
+    y="228"
+    text-anchor="middle"
+    fill="#ffffff"
+    font-family="Arial"
+    font-size="30"
+    font-weight="700"
+  >
+    258
+  </text>
+
+
+  <!-- Row 2 -->
+
+  <g>
+
+    <rect
+      x="60"
+      y="275"
+      width="250"
+      height="90"
+      rx="18"
+      fill="#ffffff"
+      fill-opacity="0.07"
+    />
+
+    <rect
+      x="330"
+      y="275"
+      width="250"
+      height="90"
+      rx="18"
+      fill="#ffffff"
+      fill-opacity="0.07"
+    />
+
+    <rect
+      x="600"
+      y="275"
+      width="250"
+      height="90"
+      rx="18"
+      fill="#ffffff"
+      fill-opacity="0.07"
+    />
+
+    <rect
+      x="870"
+      y="275"
+      width="270"
+      height="90"
+      rx="18"
+      fill="#ffffff"
+      fill-opacity="0.07"
+    />
+
+  </g>
+
+
+  <text
+    x="185"
+    y="310"
+    text-anchor="middle"
+    fill="#cbd5e1"
+    font-family="Arial"
+    font-size="14"
+  >
+    📅 ACTIVE DAYS
+  </text>
+
+  <text
+    x="185"
+    y="345"
+    text-anchor="middle"
+    fill="#ffffff"
+    font-family="Arial"
+    font-size="26"
+    font-weight="700"
+  >
+    72
+  </text>
+
+
+  <text
+    x="455"
+    y="310"
+    text-anchor="middle"
+    fill="#cbd5e1"
+    font-family="Arial"
+    font-size="14"
+  >
+    🔀 PULL REQUESTS
+  </text>
+
+  <text
+    x="455"
+    y="345"
+    text-anchor="middle"
+    fill="#ffffff"
+    font-family="Arial"
+    font-size="26"
+    font-weight="700"
+  >
+    6
+  </text>
+
+
+  <text
+    x="725"
+    y="310"
+    text-anchor="middle"
+    fill="#cbd5e1"
+    font-family="Arial"
+    font-size="14"
+  >
+    💻 COMMITS
+  </text>
+
+  <text
+    x="725"
+    y="345"
+    text-anchor="middle"
+    fill="#ffffff"
+    font-family="Arial"
+    font-size="26"
+    font-weight="700"
+  >
+    188
+  </text>
+
+
+  <text
+    x="1005"
+    y="310"
+    text-anchor="middle"
+    fill="#cbd5e1"
+    font-family="Arial"
+    font-size="14"
+  >
+    🐛 ISSUES
+  </text>
+
+  <text
+    x="1005"
+    y="345"
+    text-anchor="middle"
+    fill="#ffffff"
+    font-family="Arial"
+    font-size="26"
+    font-weight="700"
+  >
+    2
+  </text>
+
+
+  <!-- Footer -->
+
+  <text
+    x="600"
+    y="395"
+    text-anchor="middle"
+    fill="#94a3b8"
+    font-family="Arial"
+    font-size="12"
+  >
+    github.com/Ketan2035 • Automatically updated
+  </text>
+
+</svg>
