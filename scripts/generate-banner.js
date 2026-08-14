@@ -10,7 +10,6 @@ if (!username || !token) {
 const query = `
 query($login: String!) {
   user(login: $login) {
-
     name
     login
 
@@ -68,40 +67,43 @@ async function getGitHubData() {
     throw new Error("GitHub GraphQL request failed");
   }
 
+  if (!json.data || !json.data.user) {
+    throw new Error("GitHub user not found");
+  }
+
   return json.data.user;
 }
+
+
+/* =========================================================
+   STREAK CALCULATION
+========================================================= */
 
 function calculateStreak(days) {
   const sorted = [...days].sort(
     (a, b) => new Date(a.date) - new Date(b.date)
   );
 
-  let currentStreak = 0;
   let longestStreak = 0;
   let runningStreak = 0;
 
-  for (let i = 0; i < sorted.length; i++) {
-    if (sorted[i].contributionCount > 0) {
+  for (const day of sorted) {
+    if (day.contributionCount > 0) {
       runningStreak++;
-      longestStreak = Math.max(longestStreak, runningStreak);
+      longestStreak = Math.max(
+        longestStreak,
+        runningStreak
+      );
     } else {
       runningStreak = 0;
     }
   }
 
-  const today = new Date();
+  let currentStreak = 0;
 
-  today.setHours(0, 0, 0, 0);
-
-  let index = sorted.length - 1;
-
-  while (index >= 0) {
-    const day = new Date(sorted[index].date);
-    day.setHours(0, 0, 0, 0);
-
-    if (sorted[index].contributionCount > 0) {
+  for (let i = sorted.length - 1; i >= 0; i--) {
+    if (sorted[i].contributionCount > 0) {
       currentStreak++;
-      index--;
     } else {
       break;
     }
@@ -113,6 +115,11 @@ function calculateStreak(days) {
   };
 }
 
+
+/* =========================================================
+   ESCAPE XML
+========================================================= */
+
 function escapeXml(value) {
   return String(value)
     .replace(/&/g, "&amp;")
@@ -121,6 +128,11 @@ function escapeXml(value) {
     .replace(/"/g, "&quot;")
     .replace(/'/g, "&apos;");
 }
+
+
+/* =========================================================
+   CREATE BANNER
+========================================================= */
 
 function createBanner(stats) {
 
@@ -137,6 +149,8 @@ function createBanner(stats) {
 
   <defs>
 
+    <!-- GitHub Dark Background -->
+
     <linearGradient
       id="background"
       x1="0%"
@@ -144,10 +158,24 @@ function createBanner(stats) {
       x2="100%"
       y2="100%"
     >
-      <stop offset="0%" stop-color="#0f172a"/>
-      <stop offset="50%" stop-color="#312e81"/>
-      <stop offset="100%" stop-color="#581c87"/>
+      <stop
+        offset="0%"
+        stop-color="#0d1117"
+      />
+
+      <stop
+        offset="55%"
+        stop-color="#0d1117"
+      />
+
+      <stop
+        offset="100%"
+        stop-color="#161b22"
+      />
     </linearGradient>
+
+
+    <!-- GitHub Blue → Green Accent -->
 
     <linearGradient
       id="accent"
@@ -156,23 +184,109 @@ function createBanner(stats) {
       x2="100%"
       y2="0%"
     >
-      <stop offset="0%" stop-color="#22d3ee"/>
-      <stop offset="50%" stop-color="#a855f7"/>
-      <stop offset="100%" stop-color="#ec4899"/>
+      <stop
+        offset="0%"
+        stop-color="#58a6ff"
+      />
+
+      <stop
+        offset="50%"
+        stop-color="#26a641"
+      />
+
+      <stop
+        offset="100%"
+        stop-color="#39d353"
+      />
     </linearGradient>
 
+
+    <!-- GitHub Contribution Green -->
+
+    <linearGradient
+      id="githubGreen"
+      x1="0%"
+      y1="0%"
+      x2="100%"
+      y2="0%"
+    >
+      <stop
+        offset="0%"
+        stop-color="#0e4429"
+      />
+
+      <stop
+        offset="50%"
+        stop-color="#26a641"
+      />
+
+      <stop
+        offset="100%"
+        stop-color="#39d353"
+      />
+    </linearGradient>
+
+
+    <!-- Subtle Shadow -->
+
     <filter id="shadow">
+
       <feDropShadow
         dx="0"
-        dy="8"
-        stdDeviation="12"
-        flood-opacity="0.35"
+        dy="6"
+        stdDeviation="10"
+        flood-color="#000000"
+        flood-opacity="0.45"
       />
+
+    </filter>
+
+
+    <!-- Blue Glow -->
+
+    <filter id="blueGlow">
+
+      <feGaussianBlur
+        stdDeviation="5"
+        result="blur"
+      />
+
+      <feMerge>
+
+        <feMergeNode in="blur"/>
+
+        <feMergeNode in="SourceGraphic"/>
+
+      </feMerge>
+
+    </filter>
+
+
+    <!-- Green Glow -->
+
+    <filter id="greenGlow">
+
+      <feGaussianBlur
+        stdDeviation="4"
+        result="blur"
+      />
+
+      <feMerge>
+
+        <feMergeNode in="blur"/>
+
+        <feMergeNode in="SourceGraphic"/>
+
+      </feMerge>
+
     </filter>
 
   </defs>
 
-  <!-- Background -->
+
+  <!-- =====================================================
+       BACKGROUND
+  ====================================================== -->
 
   <rect
     width="1200"
@@ -181,31 +295,38 @@ function createBanner(stats) {
     fill="url(#background)"
   />
 
-  <!-- Decorative glow -->
+
+  <!-- Subtle GitHub blue glow -->
 
   <circle
     cx="1080"
     cy="50"
     r="180"
-    fill="#a855f7"
-    opacity="0.08"
+    fill="#58a6ff"
+    opacity="0.035"
   />
+
+
+  <!-- Subtle GitHub green glow -->
 
   <circle
     cx="80"
     cy="380"
     r="180"
-    fill="#22d3ee"
-    opacity="0.07"
+    fill="#39d353"
+    opacity="0.035"
   />
 
-  <!-- Header -->
+
+  <!-- =====================================================
+       HEADER
+  ====================================================== -->
 
   <text
     x="600"
     y="70"
     text-anchor="middle"
-    fill="#ffffff"
+    fill="#f0f6fc"
     font-family="Arial, Helvetica, sans-serif"
     font-size="42"
     font-weight="700"
@@ -213,18 +334,20 @@ function createBanner(stats) {
     Ketan Kumar
   </text>
 
+
   <text
     x="600"
     y="105"
     text-anchor="middle"
-    fill="#cbd5e1"
+    fill="#8b949e"
     font-family="Arial, Helvetica, sans-serif"
     font-size="17"
   >
     Full Stack Developer • MERN • AI Products
   </text>
 
-  <!-- Accent -->
+
+  <!-- GitHub Accent -->
 
   <rect
     x="440"
@@ -233,11 +356,18 @@ function createBanner(stats) {
     height="3"
     rx="2"
     fill="url(#accent)"
+    filter="url(#blueGlow)"
   />
 
-  <!-- Row 1 -->
+
+  <!-- =====================================================
+       TOP STAT CARDS
+  ====================================================== -->
 
   <g filter="url(#shadow)">
+
+
+    <!-- Current Streak -->
 
     <rect
       x="60"
@@ -245,11 +375,13 @@ function createBanner(stats) {
       width="330"
       height="95"
       rx="18"
-      fill="#ffffff"
-      fill-opacity="0.08"
-      stroke="#ffffff"
-      stroke-opacity="0.12"
+      fill="#161b22"
+      stroke="#30363d"
+      stroke-width="1"
     />
+
+
+    <!-- Longest Streak -->
 
     <rect
       x="435"
@@ -257,11 +389,13 @@ function createBanner(stats) {
       width="330"
       height="95"
       rx="18"
-      fill="#ffffff"
-      fill-opacity="0.08"
-      stroke="#ffffff"
-      stroke-opacity="0.12"
+      fill="#161b22"
+      stroke="#30363d"
+      stroke-width="1"
     />
+
+
+    <!-- Contributions -->
 
     <rect
       x="810"
@@ -269,91 +403,115 @@ function createBanner(stats) {
       width="330"
       height="95"
       rx="18"
-      fill="#ffffff"
-      fill-opacity="0.08"
-      stroke="#ffffff"
-      stroke-opacity="0.12"
+      fill="#161b22"
+      stroke="#30363d"
+      stroke-width="1"
     />
 
   </g>
 
-  <!-- Row 1 Labels -->
+
+  <!-- =====================================================
+       CURRENT STREAK
+  ====================================================== -->
 
   <text
     x="225"
     y="190"
     text-anchor="middle"
-    fill="#cbd5e1"
+    fill="#8b949e"
     font-family="Arial"
     font-size="15"
+    font-weight="600"
   >
-    🔥 CURRENT STREAK
+     CURRENT STREAK
   </text>
+
 
   <text
     x="225"
     y="228"
     text-anchor="middle"
-    fill="#ffffff"
+    fill="#39d353"
     font-family="Arial"
     font-size="30"
     font-weight="700"
+    filter="url(#greenGlow)"
   >
-    ${stats.currentStreak} days
+    ${escapeXml(stats.currentStreak)} days
   </text>
 
+
+  <!-- =====================================================
+       LONGEST STREAK
+  ====================================================== -->
 
   <text
     x="600"
     y="190"
     text-anchor="middle"
-    fill="#cbd5e1"
+    fill="#8b949e"
     font-family="Arial"
     font-size="15"
+    font-weight="600"
   >
-    🏆 LONGEST STREAK
+     LONGEST STREAK
   </text>
+
 
   <text
     x="600"
     y="228"
     text-anchor="middle"
-    fill="#ffffff"
+    fill="#58a6ff"
     font-family="Arial"
     font-size="30"
     font-weight="700"
+    filter="url(#blueGlow)"
   >
-    ${stats.longestStreak} days
+    ${escapeXml(stats.longestStreak)} days
   </text>
 
+
+  <!-- =====================================================
+       CONTRIBUTIONS
+  ====================================================== -->
 
   <text
     x="975"
     y="190"
     text-anchor="middle"
-    fill="#cbd5e1"
+    fill="#8b949e"
     font-family="Arial"
     font-size="15"
+    font-weight="600"
   >
-    📊 CONTRIBUTIONS
+     CONTRIBUTIONS
   </text>
+
 
   <text
     x="975"
     y="228"
     text-anchor="middle"
-    fill="#ffffff"
+    fill="#39d353"
     font-family="Arial"
     font-size="30"
     font-weight="700"
+    filter="url(#greenGlow)"
   >
-    ${stats.contributions}
+    ${escapeXml(stats.contributions)}
   </text>
 
 
-  <!-- Row 2 -->
+  <!-- =====================================================
+       SECOND ROW
+  ====================================================== -->
 
   <g>
+
+
+    <!-- Active Days -->
 
     <rect
       x="60"
@@ -361,9 +519,13 @@ function createBanner(stats) {
       width="250"
       height="90"
       rx="18"
-      fill="#ffffff"
-      fill-opacity="0.07"
+      fill="#161b22"
+      stroke="#30363d"
+      stroke-width="1"
     />
+
+
+    <!-- Pull Requests -->
 
     <rect
       x="330"
@@ -371,9 +533,13 @@ function createBanner(stats) {
       width="250"
       height="90"
       rx="18"
-      fill="#ffffff"
-      fill-opacity="0.07"
+      fill="#161b22"
+      stroke="#30363d"
+      stroke-width="1"
     />
+
+
+    <!-- Commits -->
 
     <rect
       x="600"
@@ -381,9 +547,13 @@ function createBanner(stats) {
       width="250"
       height="90"
       rx="18"
-      fill="#ffffff"
-      fill-opacity="0.07"
+      fill="#161b22"
+      stroke="#30363d"
+      stroke-width="1"
     />
+
+
+    <!-- Issues -->
 
     <rect
       x="870"
@@ -391,125 +561,158 @@ function createBanner(stats) {
       width="270"
       height="90"
       rx="18"
-      fill="#ffffff"
-      fill-opacity="0.07"
+      fill="#161b22"
+      stroke="#30363d"
+      stroke-width="1"
     />
 
   </g>
 
 
+  <!-- =====================================================
+       ACTIVE DAYS
+  ====================================================== -->
+
   <text
     x="185"
     y="310"
     text-anchor="middle"
-    fill="#cbd5e1"
+    fill="#8b949e"
     font-family="Arial"
     font-size="14"
+    font-weight="600"
   >
-    📅 ACTIVE DAYS
+     ACTIVE DAYS
   </text>
+
 
   <text
     x="185"
     y="345"
     text-anchor="middle"
-    fill="#ffffff"
+    fill="#39d353"
     font-family="Arial"
     font-size="26"
     font-weight="700"
   >
-    ${stats.activeDays}
+    ${escapeXml(stats.activeDays)}
   </text>
 
+
+  <!-- =====================================================
+       PULL REQUESTS
+  ====================================================== -->
 
   <text
     x="455"
     y="310"
     text-anchor="middle"
-    fill="#cbd5e1"
+    fill="#8b949e"
     font-family="Arial"
     font-size="14"
+    font-weight="600"
   >
-    🔀 PULL REQUESTS
+     PULL REQUESTS
   </text>
+
 
   <text
     x="455"
     y="345"
     text-anchor="middle"
-    fill="#ffffff"
+    fill="#58a6ff"
     font-family="Arial"
     font-size="26"
     font-weight="700"
   >
-    ${stats.prs}
+    ${escapeXml(stats.prs)}
   </text>
 
+
+  <!-- =====================================================
+       COMMITS
+  ====================================================== -->
 
   <text
     x="725"
     y="310"
     text-anchor="middle"
-    fill="#cbd5e1"
+    fill="#8b949e"
     font-family="Arial"
     font-size="14"
+    font-weight="600"
   >
-    💻 COMMITS
+     COMMITS
   </text>
+
 
   <text
     x="725"
     y="345"
     text-anchor="middle"
-    fill="#ffffff"
+    fill="#39d353"
     font-family="Arial"
     font-size="26"
     font-weight="700"
   >
-    ${stats.commits}
+    ${escapeXml(stats.commits)}
   </text>
 
+
+  <!-- =====================================================
+       ISSUES
+  ====================================================== -->
 
   <text
     x="1005"
     y="310"
     text-anchor="middle"
-    fill="#cbd5e1"
+    fill="#8b949e"
     font-family="Arial"
     font-size="14"
+    font-weight="600"
   >
-    🐛 ISSUES
+     ISSUES
   </text>
+
 
   <text
     x="1005"
     y="345"
     text-anchor="middle"
-    fill="#ffffff"
+    fill="#58a6ff"
     font-family="Arial"
     font-size="26"
     font-weight="700"
   >
-    ${stats.issues}
+    ${escapeXml(stats.issues)}
   </text>
 
 
-  <!-- Footer -->
+  <!-- =====================================================
+       FOOTER
+  ====================================================== -->
 
   <text
     x="600"
     y="395"
     text-anchor="middle"
-    fill="#94a3b8"
+    fill="#6e7681"
     font-family="Arial"
     font-size="12"
   >
-    github.com/Ketan2035 • Automatically updated
+   • github.com/Ketan2035 • 
   </text>
+
 
 </svg>
 `;
 }
+
+
+/* =========================================================
+   MAIN
+========================================================= */
 
 async function main() {
 
@@ -518,24 +721,34 @@ async function main() {
   const calendar =
     user.contributionsCollection.contributionCalendar;
 
-  const days = calendar.weeks.flatMap(
-    week => week.contributionDays
-  );
+  const days =
+    calendar.weeks.flatMap(
+      week => week.contributionDays
+    );
 
-  const streak = calculateStreak(days);
 
-  const activeDays = days.filter(
-    day => day.contributionCount > 0
-  ).length;
+  const streak =
+    calculateStreak(days);
+
+
+  const activeDays =
+    days.filter(
+      day => day.contributionCount > 0
+    ).length;
+
 
   const stats = {
-    contributions: calendar.totalContributions,
+
+    contributions:
+      calendar.totalContributions,
 
     activeDays,
 
-    currentStreak: streak.currentStreak,
+    currentStreak:
+      streak.currentStreak,
 
-    longestStreak: streak.longestStreak,
+    longestStreak:
+      streak.longestStreak,
 
     commits:
       user.contributionsCollection
@@ -548,22 +761,37 @@ async function main() {
     issues:
       user.contributionsCollection
         .totalIssueContributions
+
   };
 
-  fs.mkdirSync("assets", {
-    recursive: true
-  });
+
+  fs.mkdirSync(
+    "assets",
+    {
+      recursive: true
+    }
+  );
+
 
   fs.writeFileSync(
     "assets/github-banner.svg",
     createBanner(stats)
   );
 
-  console.log("GitHub banner generated:");
+
+  console.log(
+    "GitHub banner generated:"
+  );
+
   console.log(stats);
+
 }
 
+
 main().catch(error => {
+
   console.error(error);
+
   process.exit(1);
+
 });
